@@ -9,6 +9,8 @@ Use this reference only when a project explicitly selects Spring Framework, Spri
 - Resolve the selected release's Spring dependency-management entry and runtime artifacts from its documentation or BOM. Do not copy coordinates from this skill.
 - The business JPA or MyBatis-Plus persistence starter does not imply Outbox, Inbox, a broker, or a distributed lock. Add those only when the use case selects them.
 - When JPA entities sit outside the package of the Spring Boot application class, register their package with `@EntityScan`. Entity registration is separate from schema management: keep Flyway or Liquibase as the application-owned schema authority and do not use Hibernate DDL creation for jfoundry tables.
+- Treat GraalVM Native Image support as capability-specific. A successful base Spring Boot Native consumer does not certify a selected persistence store, broker, distributed lock, or JobRunr dispatching combination; verify the selected release's matching Native integration evidence before making that project claim.
+- When an application serializes its own event payload types in a Spring Native Image, register the application-owned types for Spring AOT binding as required by the selected Spring Boot version. Framework hints cannot infer arbitrary business payload types.
 
 ## Application Boundaries
 
@@ -16,6 +18,6 @@ Use a transaction boundary only for an application workflow that requires atomic
 
 For Spring MVC, HTTP response mapping remains a primary-adapter concern. Domain and application code select domain/application outcomes, not HTTP status codes. Use the selected release's web integration only when the project chooses its problem-response mapping.
 
-Outbox, Inbox, broker, and lock decisions remain optional capabilities. Read their specialized references before selecting a starter. For non-Spring runtimes, do not reuse Spring Boot starters.
+Outbox, Inbox, broker, lock, and JobRunr dispatch decisions remain optional capabilities. Read their specialized references before selecting a starter. For non-Spring runtimes, do not reuse Spring Boot starters.
 
 Read `references/upstream-documentation.md` for exact auto-configuration conditions, transaction annotations, properties, proxy constraints, and exception mappings.

@@ -15,6 +15,7 @@ Read `references/version-selection.md`. For an existing project, inspect its eff
 | Reliable publication and consumption | Reliable-messaging guide and selected store/transport implementation guide |
 | Spring, Quarkus, or Helidon assembly | Matching runtime implementation and configuration guide |
 | Properties, auto-configuration, APIs, and Native Image behavior | Matching release documentation and source |
+| Spring Native optional capability | Matching Spring implementation guide, compatibility evidence, and the selected profile's consumer test for the persistence, lock, or scheduler combination |
 | Architecture annotations and ArchUnit rule semantics | Architecture-styles and architecture-rule guides |
 
 When the exact version's documentation is unavailable, inspect the tagged source POMs and source code for that release. If neither is available, state the version mismatch and treat configuration-sensitive behavior as an open question rather than copying an example from an unrelated release.
