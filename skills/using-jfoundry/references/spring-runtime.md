@@ -9,8 +9,8 @@ Use this reference only when a project explicitly selects Spring Framework, Spri
 - Resolve the selected release's Spring dependency-management entry and runtime artifacts from its documentation or BOM. Do not copy coordinates from this skill.
 - The business JPA or MyBatis-Plus persistence starter does not imply Outbox, Inbox, a broker, or a distributed lock. Add those only when the use case selects them.
 - When JPA entities sit outside the package of the Spring Boot application class, register their package with `@EntityScan`. Entity registration is separate from schema management: keep Flyway or Liquibase as the application-owned schema authority and do not use Hibernate DDL creation for jfoundry tables.
-- Treat GraalVM Native Image support as capability-specific. A successful base Spring Boot Native consumer does not certify a selected persistence store, broker, distributed lock, or JobRunr dispatching combination; verify the selected release's matching Native integration evidence before making that project claim.
-- When an application serializes its own event payload types in a Spring Native Image, register the application-owned types for Spring AOT binding as required by the selected Spring Boot version. Framework hints cannot infer arbitrary business payload types.
+- Treat Spring Boot AOT + GraalVM Native Image support as capability-specific. A successful base consumer does not certify a selected persistence store, broker, distributed lock, or JobRunr dispatching combination; verify the selected release's matching Native integration evidence before making that project claim.
+- When an application serializes its own event payload types in a Spring Boot AOT + GraalVM Native Image, register the application-owned types for AOT binding as required by the selected Spring Boot version. Framework hints cannot infer arbitrary business payload types.
 
 ## Application Boundaries
 
