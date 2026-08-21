@@ -13,8 +13,8 @@ If another planning, TDD, or review workflow is already active, use this skill o
 
 ## Workflow
 
-1. Understand the business goal, acceptance expectations, actors, workflows, constraints, and uncertainty; classify how much domain and architecture work the requested increment needs.
-2. Use `domain-modeling` for non-trivial business behavior and consume its `Domain Modeling Result`.
+1. Understand the business goal, acceptance expectations, actors, workflows, constraints, and uncertainty; select the decision scope and strategic, tactical, or combined modeling depth required by the requested outcome.
+2. Use `domain-modeling` for non-trivial business behavior or strategic domain decisions and consume its `Domain Modeling Result`. The coordinator selects the required depth; it does not perform or rewrite the specialist's modeling method.
 3. Use `domain-architecture-guidance` to choose appropriate boundaries and consume its `Architecture Guidance Result`.
 4. Use `using-jfoundry` only when applicable and after domain and architecture assumptions are clear. If jfoundry use is undecided, continue framework-neutral phases without invoking it and defer the choice until a framework-specific next activity materially requires it.
 5. Produce a composite `Domain Architecture Handoff` that makes planning readiness, dependent blockers, and the next owner explicit.
@@ -23,7 +23,7 @@ If another planning, TDD, or review workflow is already active, use this skill o
 
 ## Skill Routing
 
-- Use `domain-modeling` for requirements-to-model work: ubiquitous language, business commands, events, bounded contexts, aggregates, invariants, value objects, domain services, repositories, and read needs/read models.
+- Use `domain-modeling` for requirements-to-model work: business landscapes and capabilities, system decomposition or modernization, multi-team ownership, Subdomains, Bounded Contexts, Context Maps and context relationships, current/target semantic conflicts, ubiquitous language, business commands, events, aggregates, invariants, value objects, domain services, aggregate lifecycle/access needs, and read needs/read models.
 - Use `domain-architecture-guidance` for architecture decisions and reviews: dependency direction, Layered/Onion/Hexagonal/CQRS boundaries, jMolecules-style annotations, architecture tests, and source-aware rule interpretation.
 - Use `using-jfoundry` only when the target project uses jfoundry or the user explicitly asks for jfoundry-specific dependencies, package layout, annotations, Repository/Port guidance, persistence adapters, Outbox/Inbox, or ArchUnit setup. `Undecided` alone does not make this specialist applicable.
 
@@ -41,6 +41,7 @@ Read [references/workflow-results.md](references/workflow-results.md) before coo
 
 - Do not let framework choices drive the domain model.
 - Do not force DDD ceremony into low-complexity CRUD.
+- Preserve the specialist-owned modeling scope, depth, and applicable strategic or tactical payload directly or by artifact reference; do not reconstruct it in the coordinator.
 - Keep open business questions visible before coding.
 - Attribute guidance to the right source: DDD concepts, architecture style constraints, framework conventions, heuristics, or project policies.
 - Keep this workflow independent. It can run alongside other process skills, but it must not require them.

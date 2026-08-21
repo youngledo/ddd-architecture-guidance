@@ -16,6 +16,10 @@ Use `domain-architecture-workflow` when the request should move from business re
 Start from available project evidence. Useful inputs include:
 
 - business goal, actors, workflows, known rules, and rejection cases;
+- business capabilities or Subdomain hypotheses, when a strategic decision is in scope;
+- known team ownership, rule ownership, and important dependencies between business contexts;
+- observed current meaning and desired target intent, especially for modernization or brownfield
+  work;
 - requirements, specifications, ADRs, code, APIs, schemas, or event notes;
 - existing architecture and constraints that must be preserved;
 - language, runtime, persistence, messaging, and other technology constraints;
@@ -47,7 +51,7 @@ The specialists produce, and the coordinator consumes, `Domain Modeling Result`,
 
 `JFoundry: undecided` does not block framework-neutral Domain Modeling or Architecture Guidance and does not by itself invoke `using-jfoundry`. Preserve the uncertainty as a pending optional landing. Ask about it only when the next activity requires framework-specific implementation guidance and the choice materially changes that activity.
 
-`Domain Architecture Handoff` is the coordinator-owned composite interoperability result. It preserves phase states, specialist summaries or artifacts, confirmed decisions, constraints, open questions and blockers, framework landing or non-applicability, and the recommended next activity. It does not replace specialist payloads and does not require a fixed file format. When persisted, workflow artifacts use `docs/domain-architecture/`.
+`Domain Architecture Handoff` is the coordinator-owned composite interoperability result. It preserves phase states, specialist summaries or artifacts, scoped strategic and tactical decisions, relevant context relationships, current/target distinctions, constraints, open questions and dependent blockers, framework landing or non-applicability, and the recommended next activity. It does not replace specialist payloads and does not require a fixed file format. When persisted, workflow artifacts use `docs/domain-architecture/`.
 
 Before detailed planning, identify the smallest independently verifiable increment, its non-goals,
 the phases it depends on, and its planning owner. Read
@@ -119,6 +123,10 @@ or architecture boundaries.
 - When no companion is selected, plugin-managed detailed planning is the next activity under
   `docs/domain-architecture/plans/`.
 - When implementation exposes architecture drift, return to `domain-architecture-guidance` and revise affected downstream guidance.
-- When implementation changes business meaning, return to `domain-modeling` before revising architecture or framework landing.
+- When implementation changes Subdomain scope, Bounded Context meaning, team or rule ownership,
+  a context relationship, current/target intent, or other business meaning, return to
+  `domain-modeling` before revising dependent architecture or framework landing.
 
-The coordinator records what changed and which downstream results must be refreshed; the process companion decides how its own artifacts and execution state are updated.
+The coordinator preserves unaffected completed results and records what changed and which downstream
+results must be refreshed; the process companion decides how its own artifacts and execution state
+are updated.

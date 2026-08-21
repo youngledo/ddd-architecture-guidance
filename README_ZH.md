@@ -72,14 +72,17 @@ claude plugin install domain-architecture@xfoundries
 | 需求 | 入口 |
 |---|---|
 | 端到端的业务领域分析与交接 | `domain-architecture-workflow` |
-| 业务语言、行为、不变量或边界 | `domain-modeling` |
+| 有范围的战略与战术建模：业务能力、子域、限界上下文、上下文映射、现状/目标语义冲突、业务规则、生命周期和战术模式 | `domain-modeling` |
 | 架构决策或边界评审 | `domain-architecture-guidance` |
 | 已确认的 jfoundry 实现落地 | `using-jfoundry` |
+
+`domain-modeling` 仅在待决策问题确实需要时启用战略建模，例如系统拆分、多团队责任归属或跨上下文语义冲突。已建立限界上下文内的增量可以只做战术建模，也可以返回轻量的 `not-applicable` 结果。战略建模描述业务问题空间，不会据此推导团队、模块、微服务、数据库、部署边界或架构风格。
 
 ## 适用范围与限制
 
 - 核心领域建模和架构指导方法与语言、框架无关，但 Java/Kotlin 的实现指导最深入。C#/.NET、Go、Python 提供生态映射而非代码模板；`using-jfoundry` 仅适用于 Java。
 - 主要面向业务后端软件。客户端在拥有实质业务行为、离线工作流、同步冲突或本地持久化边界时可按需使用；本插件不提供移动端或前端平台的专项实现模板。
+- 领域建模可以区分业务能力、子域、限界上下文和上下文映射，也能表达棕地系统中的现状与目标语义。它只按当前决策所需的深度记录业务规则、生命周期转换、不变量、聚合及其他战术模式。
 - 不要把 DDD、端口与适配器（Ports and Adapters）、CQRS、仓储（Repository）或分层架构（Layered Architecture）强行套到简单 CRUD、薄客户端或小脚本中。
 
 ## 进阶使用
@@ -119,7 +122,9 @@ skills/
 
 本地开发时，保持目标智能体的 marketplace 源指向本仓库即可。修改插件元数据后，在目标智能体中重新安装或更新插件，让它刷新缓存。
 
-对 Codex 来说，必要时更新 `.codex-plugin/plugin.json` 的缓存刷新版本字段，然后从 `domain-architecture@xfoundries` 重新安装。
+Codex 与 Claude 清单共享同一个 SemVer 发布版本。向后兼容的新能力递增 `MINOR`，兼容性修复递增 `PATCH`；`1.0.0` 之后的不兼容公共契约变更递增 `MAJOR`，`1.0.0` 之前则递增下一个 `MINOR`。发布标签使用 `domain-architecture--v<version>`。
+
+Codex 的 `.codex-plugin/plugin.json` 会在发布版本后追加 `+codex.<cachebuster>`。当插件内容或元数据变化并需要使 Codex 缓存失效时，只刷新该后缀；不要仅为刷新缓存而递增发布版本。之后从 `domain-architecture@xfoundries` 重新安装。
 
 ## 设计原则
 

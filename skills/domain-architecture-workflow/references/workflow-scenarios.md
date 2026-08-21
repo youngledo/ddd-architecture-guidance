@@ -153,3 +153,43 @@ Use these compact scenarios to review routing and result protocols. Each scenari
 **Expected:** OpenSpec consumes the existing handoff and owns its proposal, plan, tasks, and files. Preserve prior decisions and open questions; plugin artifacts remain under `docs/domain-architecture/`. Revisit only the phases affected by new or conflicting evidence.
 
 **Prohibited:** Recreating the plugin's artifacts inside OpenSpec, forcing an OpenSpec directory onto the plugin, or rerunning completed phases without changed evidence.
+
+## Scenario 20: Multi-Team Domain Landscape
+
+**Input:** Several teams describe overlapping business capabilities, candidate subdomains, bounded contexts, and dependencies across a shared domain landscape.
+
+**Expected:** Strategic modeling declares the landscape scope and strategic depth, distinguishes capabilities, Subdomains, Bounded Contexts, and teams, and records language and rule ownership plus evidence-backed context relationships. Classify Core, Supporting, or Generic only when the classification informs a decision, with its rationale and item-level evidence state. If a missing boundary is nonblocking, record it in Open Questions and identify it as deferred; if it prevents a usable landscape or next decision, return `needs-input` rather than handing a vague result downstream. Do not infer microservices, packages, or an architecture style.
+
+**Prohibited:** Treating Subdomain, Bounded Context, team, module, database, or deployable service as one-to-one mappings, or presenting a relationship map as an implementation topology.
+
+## Scenario 21: Local Increment With Deferred Landscape
+
+**Input:** A team needs to plan a cancellation increment inside an established Bounded Context, with no unresolved external relationship affecting the increment, while the complete organization-wide domain landscape is still being discovered.
+
+**Expected:** When the increment scope and tactical modeling depth are available, model the affected cancellation rule and lifecycle transition, and Domain Modeling returns `completed`. The `Domain Architecture Handoff` marks the increment `planning-ready` only when every phase and decision consumed by the increment is `completed` or `not-applicable`, and every consumed domain item is confirmed or an explicitly accepted assumption with its original item status and acceptance source/evidence preserved. Record unrelated incomplete landscape items as deferred questions, and do not mark unreviewed areas as modeled or confirmed; do not block the local handoff on nonessential global mapping.
+
+**Prohibited:** Claiming the global landscape is complete, or marking the increment blocked solely because unrelated contexts and relationships remain unmapped.
+
+## Scenario 22: Brownfield Current And Target Meaning
+
+**Input:** Existing APIs, tables, and services expose conflicting meanings for `Customer` in a brownfield system, while a target domain language is being proposed.
+
+**Expected:** Treat APIs, tables, and services as observed current-state evidence. Record current meaning and its status/evidence separately from target meaning and its status/evidence; propose the required Bounded Context or language changes. Mark each item `confirmed`, `inferred`, or `proposed`, then hand off explicit translation or migration decisions to the responsible phase. A proposed target may drive Architecture Guidance only as an explicitly accepted assumption with acceptance source/evidence.
+
+**Prohibited:** Treating schema, endpoint, or service names as target meaning, or presenting a proposal as `confirmed`.
+
+## Scenario 23: Lifecycle Rule Without A Mandatory Event
+
+**Input:** A lifecycle change is governed by a business rule and may be rejected based on current state, with no downstream policy, audit, or collaboration evidence requiring notification.
+
+**Expected:** Record the rule, rejection behavior, state transition, consistency need, aggregate responsibility, and `confirmed | inferred | proposed` item status with item-level evidence. Because there is no downstream policy, audit, history, later-decision, or collaboration evidence, explicitly omit a Domain Event; add one only when evidence establishes business significance beyond the state change.
+
+**Prohibited:** Emitting a Domain Event for every lifecycle transition, treating event publication as mandatory merely because the model has a state change, or choosing transaction implementation during modeling.
+
+## Scenario 24: Cross-Context Meaning Before Integration Technology
+
+**Input:** Two bounded contexts must collaborate, but the integration mechanism has not been selected.
+
+**Expected:** Record the direction of collaboration, concept and data ownership, business meaning, and the collaboration or model-protection decision, each with `confirmed | inferred | proposed` item status and item-level evidence. When current and target relationships differ, preserve separate status and evidence for each. Hand off the integration need to Architecture Guidance, which decides the interface and integration mechanisms; do not choose HTTP, messaging, schemas, ports, adapters, or topology in strategic modeling.
+
+**Prohibited:** Inferring integration technology from the context relationship, choosing delivery guarantees during strategic modeling, or allowing a transport or deployment shape to decide cross-context business meaning.

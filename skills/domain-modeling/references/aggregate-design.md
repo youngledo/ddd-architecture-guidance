@@ -11,7 +11,6 @@ Good signals:
 - A command targets one clear consistency boundary.
 - Rules require checking and changing several fields or child entities together.
 - Other objects should refer to this concept by identity.
-- Repository loading and saving the boundary makes the use case clearer.
 
 Avoid aggregates that only mirror database tables. If the use case is simple CRUD with no meaningful invariant, keep the model simpler.
 
@@ -31,11 +30,20 @@ Use a domain service only for domain decisions that do not naturally belong to o
 
 Do not move application orchestration, transaction demarcation, security checks, logging, framework calls, or concrete persistence concerns into a domain service. Those belong in application services or adapters.
 
-A domain service may depend on domain-level abstractions, including repository contracts or narrow outbound ports, only when a domain decision genuinely needs them and the chosen architecture allows that dependency. Prefer application services loading aggregates and passing facts into domain behavior when that is enough. Do not use domain services as a shortcut for moving use-case workflow, pagination, reporting, wrappers, specifications, or other persistence-shaped queries into the domain layer.
+A domain decision may require an external business fact or capability. Record that need in the model
+without selecting a Repository, Port, client, or adapter. Architecture guidance decides interface
+placement and dependency direction after the architecture style and project constraints are known.
+Prefer application coordination that supplies the required facts to domain behavior when that is
+enough. Do not use domain services as a shortcut for moving use-case workflow, pagination,
+reporting, wrappers, specifications, or other persistence-shaped queries into the domain model.
 
 ## Repositories
 
-Use repositories for aggregate lifecycle and command-side aggregate loading. Repository methods should express domain intent, not SQL condition shape.
+Repository is a DDD concept for aggregate lifecycle and command-side aggregate access. At the
+modeling stage, record the aggregate lifecycle or access need without deciding whether a Repository
+interface exists, which layer owns it, or whether an architecture maps it to a Port. When a
+Repository is justified later, its methods should express domain intent rather than SQL condition
+shape.
 
 Queries for pages, reports, dashboards, projections, lookup context, or maintenance scans are usually read-side concerns, not aggregate repository responsibilities.
 

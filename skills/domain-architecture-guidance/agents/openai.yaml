@@ -1,4 +1,4 @@
 interface:
   display_name: "Domain Architecture Guidance"
   short_description: "Source-aware domain architecture guidance"
-  default_prompt: "Use $domain-architecture-guidance to evaluate this business-domain architecture and return an explicit Architecture Guidance Result with rule sources, constraints, evidence, and next-step readiness."
+  default_prompt: "Use $domain-architecture-guidance to evaluate this business-domain architecture without assuming modeling is complete. Let only confirmed domain decisions or assumptions with recorded acceptance source/evidence drive architecture choices; never accept an assumption yourself. Keep unaccepted inferred or proposed items as uncertainty. When one blocks a required choice, set only the dependent Architecture Guidance result to needs-input, preserve unaffected conclusions, and route the smallest blocking business question to Domain Modeling. Return an Architecture Guidance Result with consumed decisions, traceable consequences, rule sources, constraints, evidence, and next-step readiness."

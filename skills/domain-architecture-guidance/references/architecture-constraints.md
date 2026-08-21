@@ -27,6 +27,27 @@ Use strong language only after identifying the source of the rule:
 
 Do not relax an explicit architecture constraint just because a simpler CRUD style would also be valid in another project.
 
+## Domain Decisions And Architecture Mapping
+
+Domain Modeling supplies the business meaning needed by architecture work: relevant Subdomains and
+Bounded Contexts, context relationships, business rules, lifecycle, consistency needs, Domain
+Events, and required external business facts or capabilities. Architecture Guidance consumes those
+decisions and chooses interfaces, dependency direction, coordination mechanisms, integration
+contracts, event publication, and reliability measures. It does not derive an architecture style or
+deployment boundary directly from a strategic classification or domain model complexity.
+
+A Repository is a DDD concept for providing collection-like access to an Aggregate and supporting
+its lifecycle without exposing persistence mechanics. The chosen architecture decides where that
+interface belongs, which dependencies may reference it, and, in Hexagonal Architecture, whether it
+serves as an outbound contract implemented by a secondary adapter. Do not make a Repository
+mandatory for every domain object or treat `Repository` and `outbound Port` as universally
+interchangeable terms.
+
+Architecture work may expose that an additional business fact, capability, or consistency decision
+is needed, but Domain Modeling owns its meaning and requirement. If the proposed mapping changes
+business meaning or ownership, return that decision to Domain Modeling before selecting the
+interface or coordination mechanism.
+
 ## Application-Owned Shared Models
 
 When multiple application contracts in one business capability use the same command, result, query,
@@ -206,6 +227,10 @@ inward dependencies; do not import Hexagonal `adapter.in/out` or port vocabulary
 helpers.
 
 ## Domain Events And Integration Contracts
+
+Domain Modeling identifies a Domain Event because the occurrence has relevant business meaning.
+Architecture Guidance decides whether it crosses a boundary and, if so, its contract, publication,
+and reliability consequences.
 
 Do not assume an internal domain event is automatically a suitable public integration contract.
 The two types may share business meaning while serving different ownership and evolution needs:

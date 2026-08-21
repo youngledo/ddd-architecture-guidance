@@ -72,14 +72,17 @@ The handoff preserves specialist results, decisions, constraints, open questions
 | Need | Entry point |
 |---|---|
 | End-to-end business-domain analysis and handoff | `domain-architecture-workflow` |
-| Business language, behavior, invariants, or boundaries | `domain-modeling` |
+| Scoped strategic and tactical modeling: business capabilities, Subdomains, Bounded Contexts, Context Maps, current/target semantic conflicts, rules, lifecycle, and tactical patterns | `domain-modeling` |
 | Architecture decision or boundary review | `domain-architecture-guidance` |
 | Confirmed jfoundry implementation landing | `using-jfoundry` |
+
+`domain-modeling` invokes strategic work only when the requested decision requires it, such as system decomposition, multi-team ownership, or cross-context semantic conflict. An established-context increment can remain tactical or return a lightweight `not-applicable` result. Strategic modeling describes the business problem space; it does not derive teams, modules, microservices, databases, deployment boundaries, or architecture styles.
 
 ## Scope And Limits
 
 - The core modeling and architecture methods are language and framework neutral, but implementation guidance is deepest for Java/Kotlin. C#/.NET, Go, and Python receive ecosystem mapping rather than code templates; `using-jfoundry` is Java-only.
 - The primary target is business backend software. Client applications are a conditional fit when they own substantial domain behavior, offline workflows, synchronization conflicts, or local persistence boundaries; this plugin does not provide platform-specific mobile or frontend implementation templates.
+- Domain modeling can distinguish business capabilities, Subdomains, Bounded Contexts, and Context Maps, including current and target meaning in brownfield systems. It records business rules, lifecycle transitions, invariants, aggregates, and other tactical patterns only to the depth needed by the selected decision.
 - Do not force DDD, Ports and Adapters, CQRS, repositories, or layered structures into simple CRUD applications, thin clients, or small scripts.
 
 ## Advanced Use
@@ -119,7 +122,9 @@ skills/
 
 For local development, keep the marketplace source pointed at this repository. After changing plugin metadata, reinstall or update the plugin in the target agent so it refreshes cached metadata.
 
-For Codex, update the `.codex-plugin/plugin.json` cachebuster when necessary and reinstall from `domain-architecture@xfoundries`.
+The plugin uses one SemVer release version across the Codex and Claude manifests. Backward-compatible capabilities increment `MINOR`, compatible fixes increment `PATCH`, and incompatible public contracts increment `MAJOR` after `1.0.0` (or the next `MINOR` before `1.0.0`). Release tags use `domain-architecture--v<version>`.
+
+For Codex, `.codex-plugin/plugin.json` appends `+codex.<cachebuster>` to that release version. Refresh this suffix when changed plugin content or metadata must invalidate the Codex cache; do not increment the release version only for cache refresh. Then reinstall from `domain-architecture@xfoundries`.
 
 ## Design Principle
 

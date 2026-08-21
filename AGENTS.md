@@ -36,6 +36,12 @@ Do not collapse DDD, Layered, Onion, Hexagonal / Ports and Adapters, CQRS, Event
 - Use the shared result envelope and phase statuses for substantive decisions, reviews, and implementation guidance. Do not force the full envelope onto simple conceptual explanations.
 - A `needs-input` result blocks only dependent phases. Preserve completed results, emit an interim handoff, and ask the smallest blocking question.
 - Keep `domain-modeling` framework-neutral. It should not assume jfoundry, Spring, .NET, Go, Python, or a specific architecture style.
+- Keep Subdomains and Bounded Contexts distinct. A Subdomain describes the problem space; a Bounded Context defines where a model and Ubiquitous Language apply. Neither implies a one-to-one mapping to a business capability, team, module, system, database, microservice, or deployment boundary.
+- Invoke strategic modeling only when the requested decision needs it. Do not require enterprise-wide landscape work for an independent increment whose relevant context meaning, rules, and relationships are already usable.
+- Keep problem-space modeling separate from architecture and deployment mapping. Domain Modeling may describe exchanged business meaning and model-protection needs, but Architecture Guidance owns interface placement, integration mechanisms, dependency direction, and deployment consequences.
+- For material modeling items, preserve item-level `confirmed | inferred | proposed` status and evidence. Distinguish observed current meaning from proposed target meaning, especially when technical artifacts are the evidence.
+- Treat `completed` as complete only for the declared modeling scope, depth, and recommended next activity. Deferred work blocks only decisions that depend on it and must not be presented as globally modeled or confirmed.
+- Keep optional context-map artifacts owned by `domain-modeling`. The coordinator may preserve or reference `02-context-map.md`, but should not reconstruct the specialist payload or create a parallel context map.
 - Keep `domain-architecture-guidance` source-aware. `references/source-policy.md` remains authoritative for source hierarchy.
 - Keep `using-jfoundry` jfoundry-specific. Do not move general DDD methodology into it.
 - Skip `using-jfoundry` for non-jfoundry projects and record why no framework landing applies in the composite handoff; do not invoke the specialist merely to produce a `not-applicable` result. When jfoundry use is undecided, do not invoke the specialist or block framework-neutral Domain Modeling and Architecture Guidance. Defer the choice until a framework-specific next activity materially requires it, and record the pending optional landing in the handoff.
@@ -78,10 +84,29 @@ Do not treat Clean Architecture as a wholly new, standalone architecture. Use it
 
 - Update both `README.md` and `README_ZH.md` for user-facing changes.
 - Keep English and Chinese READMEs aligned in meaning, even if not line-by-line translations.
+- Do not commit files under `docs/superpowers/`. They are local process artifacts and are
+  intentionally ignored. Never force-add them; unstage any accidentally added files before commit.
 - Keep installation instructions plugin-first and compatible with Codex `.agents/plugins` and Claude Code plugin workflows.
 - Prefer the repo-local marketplace workflow over loose user-level skill copying.
 - Mention raw `skills/` installation only as a fallback for agents without plugin support.
 - Avoid marketing claims. State scope and limits clearly.
+
+## Versioning
+
+- Use one canonical SemVer release version for the plugin. Keep it synchronized across
+  `.claude-plugin/plugin.json`, both version fields in `.claude-plugin/marketplace.json`, and the
+  base version before `+` in `.codex-plugin/plugin.json`.
+- Increment `MAJOR` for incompatible public plugin or result-contract changes, `MINOR` for
+  backward-compatible capabilities, skills, or result sections, and `PATCH` for compatible fixes
+  and clarifications. While the plugin is below `1.0.0`, use the next `MINOR` for incompatible
+  public contract changes and document the migration.
+- Keep the Codex version in the form `<release-version>+codex.<cachebuster>`. The suffix is build
+  metadata used to invalidate Codex caches; it is not an independent release version and must not
+  be used instead of a SemVer increment.
+- Refresh the Codex cachebuster whenever changed plugin content or metadata is prepared for Codex
+  installation. Do not change the canonical release version solely to refresh a local cache.
+- Tag releases as `domain-architecture--v<release-version>` after manifests validate and the
+  release commit is finalized. Do not include the Codex cachebuster in the tag.
 
 ## Validation
 
@@ -99,6 +124,7 @@ Before publishing, check:
 - `.claude-plugin/plugin.json` validates with `claude plugin validate`.
 - `.agents/plugins/marketplace.json` remains present and points at the repository root plugin.
 - `.claude-plugin/marketplace.json` remains present and validates with `claude plugin validate --strict`.
+- All release-version fields agree, excluding the Codex `+codex.<cachebuster>` suffix.
 - Every `skills/*/SKILL.md` has valid YAML frontmatter with `name` and `description`.
 - `domain-architecture-workflow` does not hard-depend on superpowers or any other external workflow skill.
 - `domain-modeling` contains modeling workflow and output protocol guidance without framework assumptions.

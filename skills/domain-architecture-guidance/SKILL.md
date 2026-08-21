@@ -17,18 +17,22 @@ DDD is a domain modeling methodology and language for business concepts, boundar
 
 1. Identify the task type: architecture explanation, code review, implementation, refactoring, package/project layout, jMolecules annotation usage, architecture test, or documentation.
 2. Determine the stack and runtime role: Java/Kotlin, C#/.NET, Go, Python, or another ecosystem. For a client application, confirm that it owns substantial domain behavior before applying backend-style patterns. Prefer host-ecosystem idioms over imported templates.
-3. Identify the chosen architecture, if any: Layered, Onion, Hexagonal / Ports and Adapters, CQRS, mixed, or none. If one is chosen, apply its structural constraints before suggesting simplification.
-4. Classify the domain complexity. Use rich DDD, aggregate modeling, CQRS, or strict ports/adapters only when the business rules and change pressure justify the ceremony.
-5. Apply source hierarchy from `references/source-policy.md` before citing or enforcing a rule.
-6. Apply architecture constraints from `references/architecture-constraints.md` before changing boundaries or dependency direction.
-7. Apply backend implementation guidance from `references/backend-guidance.md` when changing code or recommending structure.
-8. State uncertainty explicitly when a rule is context-dependent.
-9. For architecture decisions, reviews, and boundary-affecting implementation recommendations, produce an `Architecture Guidance Result` from `references/architecture-result.md` with rule sources, constraints, evidence, open questions, and readiness for the recommended next step. Simple conceptual explanations and documentation answers may remain concise unless the user asks for a structured result.
+3. Consume an applicable `Domain Modeling Result` or explicit project evidence. Record the domain model complexity and the decisions relevant to the requested architecture work. Only confirmed domain decisions or explicitly accepted assumptions with recorded acceptance source/evidence may drive architecture decisions. The agent must not accept an assumption itself; keep unaccepted `inferred` or `proposed` items as uncertainty or open questions.
+4. For a review, verify whether the implementation protects those domain decisions. For a design task, do not invent or rewrite a Subdomain, Bounded Context, invariant, lifecycle, Aggregate, or Domain Event without domain evidence; return business-meaning or ownership questions to Domain Modeling.
+5. Identify the chosen architecture, if any: Layered, Onion, Hexagonal / Ports and Adapters, CQRS, mixed, or none. If one is chosen, apply its structural constraints before suggesting simplification.
+6. Select the architecture complexity justified by the requested decision. Add CQRS, strict ports/adapters, integration mechanisms, or other structural ceremony only when the consumed domain needs and project constraints require them; do not infer those choices from domain model complexity alone.
+7. Apply source hierarchy from `references/source-policy.md` before citing or enforcing a rule.
+8. Apply architecture constraints from `references/architecture-constraints.md` before changing boundaries or dependency direction.
+9. Apply backend implementation guidance from `references/backend-guidance.md` when changing code or recommending structure.
+10. State uncertainty explicitly when a rule is context-dependent.
+11. For architecture decisions, reviews, and boundary-affecting implementation recommendations, produce an `Architecture Guidance Result` from `references/architecture-result.md` with consumed domain decisions, traceable architecture consequences, rule sources, constraints, evidence, open questions, and readiness for the recommended next step. Simple conceptual explanations and documentation answers may remain concise unless the user asks for a structured result.
 
 ## Core Rules
 
 - Prefer original and broadly recognized sources over blog-style synthesis.
 - When a project chooses DDD, enforce its core modeling discipline: ubiquitous language, explicit bounded-context meaning, invariant-protecting aggregates, identity/value distinction, and behavior placed where it best protects rules. Do not treat DDD as optional decoration after that choice is made.
+- Base architecture decisions only on confirmed domain decisions or assumptions with an explicit acceptance source/evidence; the agent cannot promote its own inference or proposal. If an unaccepted item blocks a responsible architecture decision, preserve unaffected conclusions, route the smallest blocking business question to Domain Modeling, and use `needs-input` only for the dependent Architecture Guidance result.
+- Treat Domain Modeling as the owner of business meaning and ownership. Architecture Guidance may protect and map domain decisions, but a proposed structural choice that changes them requires renewed domain modeling.
 - Do not weaken explicit architecture constraints. Apply only the constraints supplied by the selected style or an explicit project policy. For example, strict Layered and Hexagonal projects usually route controllers through application/use-case boundaries, while foundational Onion Architecture requires inward dependencies but does not itself require every controller call to pass through an application service. If the project has chosen CQRS, enforce command/query responsibility separation, query non-mutation, and read/write model boundaries without importing unrelated layer rules.
 - Do not upgrade implementation preferences into universal DDD rules. Repository naming, read-port suffixes, CQRS, Event Sourcing, package layout, jMolecules annotations, and ArchUnit tests become strict only when selected by the architecture, framework, or project policy.
 - Use jMolecules primarily for Java/Kotlin code annotation, architecture expression, validation, and documentation.

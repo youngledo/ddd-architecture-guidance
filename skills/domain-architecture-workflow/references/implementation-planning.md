@@ -24,7 +24,9 @@ docs/domain-architecture/
 ```
 
 Create only artifacts that the request produces; the tree is a default organization, not a demand
-to create empty files. `plans/` holds detailed plans only when no process companion owns them.
+to create empty files. `02-context-map.md` is an optional specialist-owned artifact; the
+coordinator does not reconstruct the Context Map or create a parallel version. `plans/` holds
+detailed plans only when no process companion owns them.
 
 Existing documents outside this tree may be used as input evidence, but they do not change the
 plugin output location. Do not create a second plugin artifact tree.
@@ -33,6 +35,7 @@ plugin output location. Do not create a second plugin artifact tree.
 
 | Increment evidence | Required workflow depth |
 |---|---|
+| New business landscape, system decomposition or modernization, multi-team boundary, Subdomain/Bounded Context decision, or cross-context semantic conflict | Strategic Domain Modeling first, followed only by the tactical modeling and Architecture Guidance needed for the first planning-ready context or increment. |
 | New domain behavior, invariants, bounded-context ownership, or external collaboration | Domain Modeling, Architecture Guidance, then optional framework landing before detailed planning. |
 | Existing architecture with a business increment | Reuse confirmed results; revisit only the affected modeling, architecture, or landing phase. |
 | Simple CRUD under established conventions | Record why richer modeling or an architecture decision is unnecessary; then plan the change. |
@@ -47,14 +50,24 @@ Before detailed planning, the handoff must identify:
 
 - the smallest independently verifiable increment and explicit non-goals;
 - the confirmed domain, architecture, and framework decisions the increment consumes;
+- every explicitly accepted assumption the increment consumes, preserving its original item
+  status and acceptance source/evidence rather than relabeling it as `confirmed`;
+- the exact Subdomain scope, Bounded Context meaning and ownership, context relationships, and
+  current/target decisions consumed by the increment when they are relevant;
 - relevant constraints and affected boundaries;
 - open questions, distinguishing blockers for this increment from nonblocking future work;
 - the next planning owner: plugin-managed planning or a named process companion.
 
-All phases needed by the selected increment must be `completed` or responsibly
-`not-applicable`. A `needs-input` result pauses only the increments that depend on the missing
-fact. Do not guess an external protocol, invariant, transaction boundary, or runtime choice to
-make a plan appear complete.
+All phases consumed by the selected increment must be usable: `completed` for their declared scope
+and recommended next step, or responsibly `not-applicable`. A `needs-input` result pauses only the
+increments that depend on the missing fact. Deferred strategic work that the increment does not
+consume remains visible but does not block planning. Do not guess an external protocol, invariant,
+transaction boundary, or runtime choice to make a plan appear complete.
+
+Planning readiness uses the same domain evidence gate as Architecture Guidance. A consumed domain
+item must be `confirmed` or an explicitly accepted assumption with acceptance source/evidence. An
+`inferred` or `proposed` item without that acceptance remains uncertainty and blocks only a plan
+that depends on it. Acceptance does not change the item's original status to `confirmed`.
 
 ## Planning Owners
 
@@ -86,7 +99,9 @@ existing constraint.
 
 ## Return Path
 
-Implementation discoveries that alter business meaning return to Domain Modeling. Discoveries
-that alter boundaries or dependency direction return to Architecture Guidance. Framework conflicts
-return to JFoundry Implementation Guidance when applicable. The planning owner updates its own
-artifacts after the revised handoff is available.
+Implementation discoveries that alter Subdomain scope, Bounded Context meaning, team or rule
+ownership, a context relationship, current/target intent, or other business meaning return to
+Domain Modeling. Discoveries that alter architecture boundaries or dependency direction without
+changing those domain decisions return to Architecture Guidance. Framework conflicts return to
+JFoundry Implementation Guidance when applicable. Preserve unaffected completed results. The
+planning owner updates its own artifacts after the revised handoff is available.
