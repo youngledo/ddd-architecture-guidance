@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/xfoundries/domain-architecture-skills/schemas/domain-architecture-handoff.schema.json",
+  "$id": "https://github.com/huahill/domain-architecture-skills/schemas/domain-architecture-handoff.schema.json",
   "title": "Domain Architecture Handoff",
   "description": "Versioned coordinator-owned handoff for domain modeling, architecture guidance, and optional framework landing.",
   "type": "object",

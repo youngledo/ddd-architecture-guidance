@@ -22,7 +22,7 @@ def valid_interim():
         },
         "producer": {
             "skill": "domain-architecture-workflow",
-            "plugin_version": "0.2.0",
+            "plugin_version": "0.3.0",
             "generated_at": "2026-09-07T00:00:00Z",
         },
         "phases": [

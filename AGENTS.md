@@ -2,6 +2,11 @@
 
 This repository contains the `domain-architecture` plugin for business-domain software architecture.
 
+The canonical GitHub repository is `https://github.com/huahill/domain-architecture-skills`, and
+the repo-owned marketplace name and installation suffix are `huahill`. Keep repository metadata,
+schema identifiers, documentation links, installation commands, and Git remotes aligned with this
+canonical organization. Mention the former `xfoundries` name only in explicit migration guidance.
+
 The plugin exposes these internal skills:
 
 - `domain-architecture-workflow`: entry-point workflow and routing.
@@ -29,7 +34,7 @@ Do not collapse DDD, Layered, Onion, Hexagonal / Ports and Adapters, CQRS, Event
 ## Skill Boundaries
 
 - Treat the plugin as the installation and distribution unit. The `skills/` directories are plugin-internal capabilities and compatibility assets, not independent products.
-- Keep `.agents/plugins/marketplace.json` as the repo-owned marketplace entry for Codex and other compatible agents. It should point at the repository root plugin with `source.url: "./"`.
+- Keep `.agents/plugins/marketplace.json` as the repo-owned `huahill` marketplace entry for Codex and other compatible agents. It should point at the repository root plugin with `source.url: "./"`.
 - Keep `.claude-plugin/marketplace.json` as the repo-owned marketplace entry for Claude Code. Do not force Claude Code to consume the Codex marketplace schema.
 - Keep `domain-architecture-workflow` as a coordinator. It should route to other skills and define phase order, not duplicate their detailed references.
 - Keep phase payload ownership with the specialist: `domain-modeling` returns the Domain Modeling Result, `domain-architecture-guidance` returns the Architecture Guidance Result, and `using-jfoundry` returns the JFoundry Implementation Guidance Result when jfoundry applies. The coordinator combines them into the Domain Architecture Handoff.

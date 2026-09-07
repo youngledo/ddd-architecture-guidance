@@ -11,8 +11,8 @@ A plugin-first architecture guidance package for business-domain software system
 ### Codex
 
 ```bash
-codex plugin marketplace add xfoundries/domain-architecture-skills
-codex plugin add domain-architecture@xfoundries
+codex plugin marketplace add huahill/domain-architecture-skills
+codex plugin add domain-architecture@huahill
 ```
 
 Confirm the plugin appears in `codex plugin list`, then start with this prompt:
@@ -33,13 +33,21 @@ For local development from this checkout, use the local source instead:
 
 ```bash
 codex plugin marketplace add .
-codex plugin add domain-architecture@xfoundries
+codex plugin add domain-architecture@huahill
 ```
 
-Use one source for the `xfoundries` marketplace name. To switch between a local checkout and the Git source, remove the existing marketplace first:
+Use one source for the `huahill` marketplace name. To switch between a local checkout and the Git source, remove the existing marketplace first:
+
+```bash
+codex plugin marketplace remove huahill
+```
+
+When upgrading an installation that still uses the former `xfoundries` marketplace, migrate it once:
 
 ```bash
 codex plugin marketplace remove xfoundries
+codex plugin marketplace add huahill/domain-architecture-skills
+codex plugin add domain-architecture@huahill
 ```
 
 ### Claude Code And Compatible Agents
@@ -48,9 +56,13 @@ Claude Code can validate and install the same plugin source through its plugin s
 
 ```bash
 claude plugin validate .
-claude plugin marketplace add xfoundries/domain-architecture-skills
-claude plugin install domain-architecture@xfoundries
+claude plugin marketplace add huahill/domain-architecture-skills
+claude plugin install domain-architecture@huahill
 ```
+
+Existing Claude Code installations should add the `huahill` marketplace and install
+`domain-architecture@huahill`; the former marketplace entry can then be removed through Claude
+Code's marketplace management.
 
 The repository also includes an [`.agents/plugins` marketplace manifest](.agents/plugins/marketplace.json) for compatible agents. Its `skills/` directory is plugin-internal; install the `domain-architecture` plugin rather than copying individual skills.
 
@@ -126,7 +138,10 @@ For local development, keep the marketplace source pointed at this repository. A
 
 The plugin uses one SemVer release version across the Codex and Claude manifests. Backward-compatible capabilities increment `MINOR`, compatible fixes increment `PATCH`, and incompatible public contracts increment `MAJOR` after `1.0.0` (or the next `MINOR` before `1.0.0`). Release tags use `domain-architecture--v<version>`.
 
-For Codex, `.codex-plugin/plugin.json` appends `+codex.<cachebuster>` to that release version. Refresh this suffix when changed plugin content or metadata must invalidate the Codex cache; do not increment the release version only for cache refresh. Then reinstall from `domain-architecture@xfoundries`.
+Version `0.3.0` moves the repository and marketplace identity from `xfoundries` to `huahill`.
+Existing installations must apply the marketplace migration described in Quick Start.
+
+For Codex, `.codex-plugin/plugin.json` appends `+codex.<cachebuster>` to that release version. Refresh this suffix when changed plugin content or metadata must invalidate the Codex cache; do not increment the release version only for cache refresh. Then reinstall from `domain-architecture@huahill`.
 
 ## Design Principle
 

@@ -11,8 +11,8 @@
 ### Codex
 
 ```bash
-codex plugin marketplace add xfoundries/domain-architecture-skills
-codex plugin add domain-architecture@xfoundries
+codex plugin marketplace add huahill/domain-architecture-skills
+codex plugin add domain-architecture@huahill
 ```
 
 通过 `codex plugin list` 确认插件已出现，然后直接发送：
@@ -33,13 +33,21 @@ codex plugin add domain-architecture@xfoundries
 
 ```bash
 codex plugin marketplace add .
-codex plugin add domain-architecture@xfoundries
+codex plugin add domain-architecture@huahill
 ```
 
-`xfoundries` 市场名称只能对应一个来源。要在本地检出与 Git 来源之间切换，先移除已有市场：
+`huahill` 市场名称只能对应一个来源。要在本地检出与 Git 来源之间切换，先移除已有市场：
+
+```bash
+codex plugin marketplace remove huahill
+```
+
+如果现有安装仍然使用原来的 `xfoundries` 市场，请执行一次迁移：
 
 ```bash
 codex plugin marketplace remove xfoundries
+codex plugin marketplace add huahill/domain-architecture-skills
+codex plugin add domain-architecture@huahill
 ```
 
 ### Claude Code 与兼容的智能体
@@ -48,9 +56,12 @@ Claude Code 可以校验并安装同一个插件源码：
 
 ```bash
 claude plugin validate .
-claude plugin marketplace add xfoundries/domain-architecture-skills
-claude plugin install domain-architecture@xfoundries
+claude plugin marketplace add huahill/domain-architecture-skills
+claude plugin install domain-architecture@huahill
 ```
+
+已有的 Claude Code 安装应添加 `huahill` 市场并安装 `domain-architecture@huahill`，然后通过
+Claude Code 的市场管理功能移除原来的市场条目。
 
 仓库还提供适用于兼容智能体的 [`.agents/plugins` 市场清单](.agents/plugins/marketplace.json)。`skills/` 是插件内部能力，应安装 `domain-architecture` 插件，而非单独复制技能。
 
@@ -126,7 +137,9 @@ skills/
 
 Codex 与 Claude 清单共享同一个 SemVer 发布版本。向后兼容的新能力递增 `MINOR`，兼容性修复递增 `PATCH`；`1.0.0` 之后的不兼容公共契约变更递增 `MAJOR`，`1.0.0` 之前则递增下一个 `MINOR`。发布标签使用 `domain-architecture--v<version>`。
 
-Codex 的 `.codex-plugin/plugin.json` 会在发布版本后追加 `+codex.<cachebuster>`。当插件内容或元数据变化并需要使 Codex 缓存失效时，只刷新该后缀；不要仅为刷新缓存而递增发布版本。之后从 `domain-architecture@xfoundries` 重新安装。
+`0.3.0` 版本将仓库和市场标识从 `xfoundries` 迁移到 `huahill`。现有安装必须按照“快速开始”中的说明迁移市场。
+
+Codex 的 `.codex-plugin/plugin.json` 会在发布版本后追加 `+codex.<cachebuster>`。当插件内容或元数据变化并需要使 Codex 缓存失效时，只刷新该后缀；不要仅为刷新缓存而递增发布版本。之后从 `domain-architecture@huahill` 重新安装。
 
 ## 设计原则
 
