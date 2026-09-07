@@ -1,5 +1,9 @@
 # Implementation Planning Handoff
 
+Use [handoff-contract.md](handoff-contract.md) for the structured handoff identity, revision,
+blocker, artifact, and planning-readiness fields. This document defines the planning gate and owner
+rules that those fields represent.
+
 ## Purpose
 
 The workflow supplies domain and architecture decisions to planning. When artifacts are persisted,
@@ -63,6 +67,10 @@ and recommended next step, or responsibly `not-applicable`. A `needs-input` resu
 increments that depend on the missing fact. Deferred strategic work that the increment does not
 consume remains visible but does not block planning. Do not guess an external protocol, invariant,
 transaction boundary, or runtime choice to make a plan appear complete.
+
+In a structured handoff, unresolved dependent blocker IDs are listed in
+`planning_readiness.dependent_blockers`. A `ready` handoff must contain no unresolved dependent
+blocker; an `interim` or `blocked` handoff can preserve all unaffected results for later revision.
 
 Planning readiness uses the same domain evidence gate as Architecture Guidance. A consumed domain
 item must be `confirmed` or an explicitly accepted assumption with acceptance source/evidence. An

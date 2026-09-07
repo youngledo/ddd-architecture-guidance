@@ -84,8 +84,21 @@ Do not treat Clean Architecture as a wholly new, standalone architecture. Use it
 
 - Update both `README.md` and `README_ZH.md` for user-facing changes.
 - Keep English and Chinese READMEs aligned in meaning, even if not line-by-line translations.
+- Treat `README_ZH.md` as a Chinese document: write explanatory prose, headings, labels, and
+  descriptions in Chinese. Retain English only for proper nouns, product and project names,
+  commands, file paths, code identifiers, protocol field values, standard technical abbreviations,
+  and formal source or library names when translating them would reduce precision. For example,
+  keep `Codex`, `Claude Code`, `DDD`, `CQRS`, `jfoundry`, `JSON Schema`, shell commands, and
+  repository paths; translate ordinary words such as `marketplace`, `skill`, `contract`,
+  `summary/full`, `consumer`, and `reference` into Chinese. Review `README_ZH.md` for accidental
+  English prose whenever it is updated.
 - Do not commit files under `docs/superpowers/`. They are local process artifacts and are
   intentionally ignored. Never force-add them; unstage any accidentally added files before commit.
+- In this plugin repository, treat generated handoff, design, and plan documents under
+  `docs/domain-architecture/` as local workflow artifacts by default. Do not commit them unless the
+  user explicitly requests that the artifact itself be versioned. The documented runtime output
+  location for business projects does not make those generated outputs part of this plugin's source
+  distribution.
 - Keep installation instructions plugin-first and compatible with Codex `.agents/plugins` and Claude Code plugin workflows.
 - Prefer the repo-local marketplace workflow over loose user-level skill copying.
 - Mention raw `skills/` installation only as a fallback for agents without plugin support.

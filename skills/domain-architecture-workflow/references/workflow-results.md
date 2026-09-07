@@ -1,5 +1,11 @@
 # Workflow Results
 
+For the structured coordinator-owned handoff contract, read
+[handoff-contract.md](handoff-contract.md). The JSON Schema lives at
+`schemas/domain-architecture-handoff.schema.json`. This document remains the authority for phase
+result semantics; the handoff contract adds identity, revision, dependency, artifact, and planning
+readiness metadata without changing specialist ownership.
+
 ## Common Result Envelope
 
 Return each phase result with these fields:
@@ -19,7 +25,15 @@ Return each phase result with these fields:
 
 Treat this envelope as a shared interoperability and content contract, not a mandatory file format. Each specialist owns and returns its phase-specific payload inside the envelope. The coordinator checks status and combines results; it does not rewrite or replace specialist guidance. Use **Artifacts** to reference persisted specialist results when available, but do not treat it as the only payload carrier.
 
+When a structured handoff is emitted, the Markdown response is its human-readable projection. The
+structured handoff references specialist results and artifacts rather than copying them into a new
+coordinator-owned source of truth. Existing text-only consumers remain supported.
+
 Mark a phase `completed` when its result is usable for the declared phase scope and recommended next step. Completion outside that scope is not implied. Mark it `needs-input` rather than guess when missing information blocks a responsible decision. Pause only dependent phase progression, preserve completed results, emit an interim `Domain Architecture Handoff` containing the blockers, and ask the smallest blocking question. Mark a phase `not-applicable` and record why it is unnecessary.
+
+The handoff contract distinguishes phase status from handoff lifecycle and revision. An interim
+handoff may become a later revision after a blocker is resolved; unaffected phase result references
+remain reusable, while invalidated downstream decisions are recorded explicitly.
 
 ## Phase Order And Transitions
 

@@ -67,7 +67,7 @@ requirements
 -> detailed planning or the selected process companion
 ```
 
-The handoff preserves specialist results, decisions, constraints, open questions, and blockers. It identifies the smallest planning-ready increment and its next owner; it is planning input, not a detailed implementation plan. Persisted workflow artifacts use `docs/domain-architecture/`, and standalone detailed plans use its `plans/` child directory.
+The handoff preserves specialist results, decisions, constraints, open questions, and blockers. It identifies the smallest planning-ready increment and its next owner; it is planning input, not a detailed implementation plan. The workflow supports a versioned machine-readable handoff contract with stable identity, revisions, dependency-scoped blockers, artifact references, accepted-assumption evidence, and planning-readiness metadata. Markdown remains the human-readable projection, and existing text-only consumers remain compatible. Persisted workflow artifacts use `docs/domain-architecture/`, and standalone detailed plans use its `plans/` child directory.
 
 | Need | Entry point |
 |---|---|
@@ -89,6 +89,8 @@ The handoff preserves specialist results, decisions, constraints, open questions
 
 - `using-jfoundry` applies only after jfoundry is confirmed or explicitly requested. An undecided framework does not block framework-neutral modeling and architecture guidance. Its [architecture landing](skills/using-jfoundry/references/architecture.md) preserves the selected style rather than choosing one.
 - A process companion such as Superpowers, SpecKit, or OpenSpec is optional and user-selected. It owns its own specifications, plans, tasks, implementation, review, files, and commands; this plugin owns the specialist results and handoff. The [first-use guide](skills/domain-architecture-workflow/references/first-use.md) defines the input, ownership, status, and return rules.
+- The structured handoff contract is additive: it does not replace specialist result ownership or require a workflow engine. The repository includes standard-library tools to validate a handoff, create a blocker-resolution revision, and render summary/full Markdown views; database persistence and distributed recovery remain outside this phase. The contract is documented in [handoff-contract.md](skills/domain-architecture-workflow/references/handoff-contract.md) and defined by [its JSON Schema](schemas/domain-architecture-handoff.schema.json).
+- Handoff consumers can request a summary or full projection. Persisted artifacts may declare a sensitivity classification and redaction requirement; process companions consume the contract and references but retain ownership of their own plans and execution state.
 - Selected architecture styles retain their own constraints. Aggregate repositories, adapter vocabulary, integration contracts, and reliable messaging are governed by the [architecture constraints](skills/domain-architecture-guidance/references/architecture-constraints.md) and the applicable specialist references; the plugin does not infer those choices from package names or available framework features.
 
 ## Source Policy

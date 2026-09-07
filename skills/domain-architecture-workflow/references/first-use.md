@@ -1,5 +1,9 @@
 # First Use
 
+For the canonical structured handoff representation and its Markdown projection, read
+[handoff-contract.md](handoff-contract.md). The existing shared result envelope remains valid for
+specialist payloads and simple conceptual explanations.
+
 ## Choose The Entry Point
 
 Use `domain-architecture-workflow` when the request should move from business requirements through domain modeling, architecture decisions, and an implementation handoff. Call a specialist directly for focused work:
@@ -52,6 +56,11 @@ The specialists produce, and the coordinator consumes, `Domain Modeling Result`,
 `JFoundry: undecided` does not block framework-neutral Domain Modeling or Architecture Guidance and does not by itself invoke `using-jfoundry`. Preserve the uncertainty as a pending optional landing. Ask about it only when the next activity requires framework-specific implementation guidance and the choice materially changes that activity.
 
 `Domain Architecture Handoff` is the coordinator-owned composite interoperability result. It preserves phase states, specialist summaries or artifacts, scoped strategic and tactical decisions, relevant context relationships, current/target distinctions, constraints, open questions and dependent blockers, framework landing or non-applicability, and the recommended next activity. It does not replace specialist payloads and does not require a fixed file format. When persisted, workflow artifacts use `docs/domain-architecture/`.
+
+When the structured contract is used, it is the canonical machine-readable handoff and the textual
+result is a projection for review. Its revision and blocker references allow a later activity to
+consume an interim handoff without discarding unaffected completed results. Consumers that only
+understand the prose envelope remain compatible during migration.
 
 Before detailed planning, identify the smallest independently verifiable increment, its non-goals,
 the phases it depends on, and its planning owner. Read
